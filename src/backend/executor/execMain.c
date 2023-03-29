@@ -68,6 +68,8 @@
 #include "utils/ruleutils.h"
 #include "utils/snapmgr.h"
 
+#include "/users/pankajkr/grpc/examples/cpp/helloworld/client.h"
+
 
 /* Hooks for plugins to get control in ExecutorStart/Run/Finish/End */
 ExecutorStart_hook_type ExecutorStart_hook = NULL;
@@ -805,6 +807,9 @@ InitPlan(QueryDesc *queryDesc, int eflags)
 	TupleDesc	tupType;
 	ListCell   *l;
 	int			i;
+
+	initClient();
+	SayHello("hello");
 
 	/*
 	 * Do permissions checks

@@ -33,6 +33,8 @@
 #include "executor/nodeSeqscan.h"
 #include "utils/rel.h"
 
+#include "/users/pankajkr/grpc/examples/cpp/helloworld/client.h"
+
 static TupleTableSlot *SeqNext(SeqScanState *node);
 
 /* ----------------------------------------------------------------
@@ -130,6 +132,8 @@ ExecInitSeqScan(SeqScan *node, EState *estate, int eflags)
 	 */
 	Assert(outerPlan(node) == NULL);
 	Assert(innerPlan(node) == NULL);
+
+	initClient();
 
 	/*
 	 * create state structure

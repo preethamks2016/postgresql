@@ -80,3 +80,10 @@ OBJS = \
 	tstoreReceiver.o
 
 include $(top_srcdir)/src/backend/common.mk
+
+# target_link_libraries(${PROJECT_NAME} ${FUSE_LIBRARIES} /users/pankajkr/grpc/examples/cpp/helloworld/cmake/build/libclient_grpc.so)
+
+# CXXFLAGS = -O3 -o prog -rdynamic -D_GNU_SOURCE -L/users/pankajkr/grpc/examples/cpp/helloworld/cmake/build
+# LIBS = -lclient_grpc.so -lpthread 
+
+# LDFLAGS = -L/users/pankajkr/grpc/examples/cpp/helloworld/cmake/build -lclient_grpc -static
