@@ -64,3 +64,193 @@ Successfully wrote to the file.
 Successfully wrote to the file.
 Successfully wrote to the file.
 Successfully wrote to the file.
+2023-03-29 17:56:35.169 CDT [1998] LOG:  received fast shutdown request
+2023-03-29 17:56:35.170 CDT [1998] LOG:  aborting any active transactions
+2023-03-29 17:56:35.173 CDT [1998] LOG:  background worker "logical replication launcher" (PID 2004) exited with exit code 1
+2023-03-29 17:56:35.175 CDT [1999] LOG:  shutting down
+2023-03-29 17:56:35.175 CDT [1999] LOG:  checkpoint starting: shutdown immediate
+2023-03-29 17:56:35.179 CDT [1999] LOG:  checkpoint complete: wrote 0 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.005 s; sync files=0, longest=0.000 s, average=0.000 s; distance=0 kB, estimate=0 kB; lsn=0/1CAAF18, redo lsn=0/1CAAF18
+2023-03-29 17:56:35.188 CDT [1998] LOG:  database system is shut down
+/usr/local/pgsql/bin/postgres: error while loading shared libraries: libclient_grpc.so: cannot open shared object file: No such file or directory
+2023-03-29 18:04:04.518 CDT [17832] LOG:  starting PostgreSQL 16devel on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0, 64-bit
+2023-03-29 18:04:04.518 CDT [17832] LOG:  listening on IPv6 address "::1", port 5432
+2023-03-29 18:04:04.518 CDT [17832] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2023-03-29 18:04:04.519 CDT [17832] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2023-03-29 18:04:04.524 CDT [17835] LOG:  database system was shut down at 2023-03-29 17:56:35 CDT
+2023-03-29 18:04:04.531 CDT [17832] LOG:  database system is ready to accept connections
+2023-03-29 18:06:02.466 CDT [19773] FATAL:  lock file "postmaster.pid" already exists
+2023-03-29 18:06:02.466 CDT [19773] HINT:  Is another postmaster (PID 17832) running in data directory "/usr/local/pgsql/pankajkrdata"?
+2023-03-29 18:06:06.725 CDT [17832] LOG:  received fast shutdown request
+2023-03-29 18:06:06.726 CDT [17832] LOG:  aborting any active transactions
+2023-03-29 18:06:06.729 CDT [17832] LOG:  background worker "logical replication launcher" (PID 17838) exited with exit code 1
+2023-03-29 18:06:06.729 CDT [17833] LOG:  shutting down
+2023-03-29 18:06:06.730 CDT [17833] LOG:  checkpoint starting: shutdown immediate
+2023-03-29 18:06:06.735 CDT [17833] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.002 s, sync=0.001 s, total=0.006 s; sync files=2, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=0 kB; lsn=0/1CAAFC8, redo lsn=0/1CAAFC8
+2023-03-29 18:06:06.743 CDT [17832] LOG:  database system is shut down
+2023-03-29 18:06:06.863 CDT [19819] LOG:  starting PostgreSQL 16devel on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0, 64-bit
+2023-03-29 18:06:06.863 CDT [19819] LOG:  listening on IPv6 address "::1", port 5432
+2023-03-29 18:06:06.863 CDT [19819] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2023-03-29 18:06:06.864 CDT [19819] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2023-03-29 18:06:06.869 CDT [19822] LOG:  database system was shut down at 2023-03-29 18:06:06 CDT
+2023-03-29 18:06:06.876 CDT [19819] LOG:  database system is ready to accept connections
+Successfully wrote to the file.
+12: 
+2023-03-29 18:10:32.303 CDT [21649] ERROR:  database "test" already exists
+2023-03-29 18:10:32.303 CDT [21649] STATEMENT:  CREATE DATABASE test;
+2023-03-29 18:10:47.097 CDT [21749] ERROR:  relation "test" does not exist at character 15
+2023-03-29 18:10:47.097 CDT [21749] STATEMENT:  SELECT * FROM test;
+2023-03-29 18:11:06.956 CDT [19820] LOG:  checkpoint starting: time
+2023-03-29 18:11:06.962 CDT [19820] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.002 s, sync=0.001 s, total=0.006 s; sync files=2, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=0 kB; lsn=0/1CAB0B0, redo lsn=0/1CAB078
+2023-03-29 18:11:27.986 CDT [21749] ERROR:  SELECT * with no tables specified is not valid at character 8
+2023-03-29 18:11:27.986 CDT [21749] STATEMENT:  SELECT *;
+Successfully wrote to the file.
+12: 
+Successfully wrote to the file.
+Successfully wrote to the file.
+2023-03-29 18:13:33.448 CDT [22470] ERROR:  syntax error at or near "/" at character 1
+2023-03-29 18:13:33.448 CDT [22470] STATEMENT:  /dt
+	/dt
+	SELECT * FROM Persons;
+Successfully wrote to the file.
+12: 
+Successfully wrote to the file.
+2023-03-29 18:15:20.279 CDT [22470] ERROR:  relation "customers" does not exist at character 13
+2023-03-29 18:15:20.279 CDT [22470] STATEMENT:  INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country)
+	VALUES ('Cardinal', 'Tom B. Erichsen', 'Skagen 21', 'Stavanger', '4006', 'Norway');
+2023-03-29 18:16:07.062 CDT [19820] LOG:  checkpoint starting: time
+2023-03-29 18:16:09.776 CDT [19820] LOG:  checkpoint complete: wrote 28 buffers (0.2%); 0 WAL file(s) added, 0 removed, 0 recycled; write=2.709 s, sync=0.003 s, total=2.714 s; sync files=21, longest=0.001 s, average=0.001 s; distance=117 kB, estimate=117 kB; lsn=0/1CC88A8, redo lsn=0/1CC8870
+Successfully wrote to the file.
+12: 
+Successfully wrote to the file.
+12: 
+Successfully wrote to the file.
+Successfully wrote to the file.
+12: 
+Successfully wrote to the file.
+2023-03-29 18:21:07.876 CDT [19820] LOG:  checkpoint starting: time
+2023-03-29 18:21:07.982 CDT [19820] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.102 s, sync=0.001 s, total=0.106 s; sync files=2, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=106 kB; lsn=0/1CC8A48, redo lsn=0/1CC8A10
+Successfully wrote to the file.
+12: 
+Successfully wrote to the file.
+Successfully wrote to the file.
+12: 
+Successfully wrote to the file.
+2023-03-29 18:23:25.649 CDT [19819] LOG:  received fast shutdown request
+2023-03-29 18:23:25.650 CDT [19819] LOG:  aborting any active transactions
+2023-03-29 18:23:25.653 CDT [19819] LOG:  background worker "logical replication launcher" (PID 19825) exited with exit code 1
+2023-03-29 18:23:25.653 CDT [19820] LOG:  shutting down
+2023-03-29 18:23:25.654 CDT [19820] LOG:  checkpoint starting: shutdown immediate
+2023-03-29 18:23:25.657 CDT [19820] LOG:  checkpoint complete: wrote 0 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=0, longest=0.000 s, average=0.000 s; distance=0 kB, estimate=95 kB; lsn=0/1CC8AF8, redo lsn=0/1CC8AF8
+2023-03-29 18:23:25.667 CDT [19819] LOG:  database system is shut down
+2023-03-29 18:23:25.789 CDT [26201] LOG:  starting PostgreSQL 16devel on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0, 64-bit
+2023-03-29 18:23:25.789 CDT [26201] LOG:  listening on IPv6 address "::1", port 5432
+2023-03-29 18:23:25.789 CDT [26201] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2023-03-29 18:23:25.790 CDT [26201] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2023-03-29 18:23:25.795 CDT [26204] LOG:  database system was shut down at 2023-03-29 18:23:25 CDT
+2023-03-29 18:23:25.802 CDT [26201] LOG:  database system is ready to accept connections
+Successfully wrote to the file.
+12: 
+Successfully wrote to the file.
+2023-03-29 18:27:32.461 CDT [26201] LOG:  received fast shutdown request
+2023-03-29 18:27:32.462 CDT [26201] LOG:  aborting any active transactions
+2023-03-29 18:27:32.465 CDT [26201] LOG:  background worker "logical replication launcher" (PID 26207) exited with exit code 1
+2023-03-29 18:27:32.466 CDT [26202] LOG:  shutting down
+2023-03-29 18:27:32.467 CDT [26202] LOG:  checkpoint starting: shutdown immediate
+2023-03-29 18:27:32.472 CDT [26202] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.003 s, sync=0.001 s, total=0.007 s; sync files=3, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=0 kB; lsn=0/1CC8BA8, redo lsn=0/1CC8BA8
+2023-03-29 18:27:32.481 CDT [26201] LOG:  database system is shut down
+2023-03-29 18:27:32.605 CDT [27689] LOG:  starting PostgreSQL 16devel on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0, 64-bit
+2023-03-29 18:27:32.605 CDT [27689] LOG:  listening on IPv6 address "::1", port 5432
+2023-03-29 18:27:32.605 CDT [27689] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2023-03-29 18:27:32.607 CDT [27689] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2023-03-29 18:27:32.612 CDT [27692] LOG:  database system was shut down at 2023-03-29 18:27:32 CDT
+2023-03-29 18:27:32.618 CDT [27689] LOG:  database system is ready to accept connections
+Successfully wrote to the file.
+Successfully wrote to the file.
+12: 
+Successfully wrote to the file.
+2023-03-29 18:32:32.711 CDT [27690] LOG:  checkpoint starting: time
+2023-03-29 18:32:32.717 CDT [27690] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.002 s, sync=0.001 s, total=0.006 s; sync files=2, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=0 kB; lsn=0/1CC8C90, redo lsn=0/1CC8C58
+Successfully wrote to the file.
+Successfully wrote to the file.
+14: failed to connect to all addresses; last error: UNKNOWN: ipv4:127.0.0.1:50051: Failed to connect to remote host: Connection refused
+Successfully wrote to the file.
+2023-03-29 18:50:40.130 CDT [27689] LOG:  received fast shutdown request
+2023-03-29 18:50:40.131 CDT [27689] LOG:  aborting any active transactions
+2023-03-29 18:50:40.135 CDT [27689] LOG:  background worker "logical replication launcher" (PID 27695) exited with exit code 1
+2023-03-29 18:50:40.135 CDT [27690] LOG:  shutting down
+2023-03-29 18:50:40.135 CDT [27690] LOG:  checkpoint starting: shutdown immediate
+2023-03-29 18:50:40.139 CDT [27690] LOG:  checkpoint complete: wrote 0 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=0, longest=0.000 s, average=0.000 s; distance=0 kB, estimate=0 kB; lsn=0/1CC8D40, redo lsn=0/1CC8D40
+2023-03-29 18:50:40.147 CDT [27689] LOG:  database system is shut down
+2023-03-29 18:50:40.269 CDT [31404] LOG:  starting PostgreSQL 16devel on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0, 64-bit
+2023-03-29 18:50:40.269 CDT [31404] LOG:  listening on IPv6 address "::1", port 5432
+2023-03-29 18:50:40.269 CDT [31404] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2023-03-29 18:50:40.270 CDT [31404] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2023-03-29 18:50:40.275 CDT [31407] LOG:  database system was shut down at 2023-03-29 18:50:40 CDT
+2023-03-29 18:50:40.282 CDT [31404] LOG:  database system is ready to accept connections
+Successfully wrote to the file.
+Successfully wrote to the file.
+14: failed to connect to all addresses; last error: UNKNOWN: ipv4:127.0.0.1:50051: Failed to connect to remote host: Connection refused
+Successfully wrote to the file.
+2023-03-29 18:52:38.563 CDT [31404] LOG:  received fast shutdown request
+2023-03-29 18:52:38.570 CDT [31404] LOG:  aborting any active transactions
+2023-03-29 18:52:38.573 CDT [31404] LOG:  background worker "logical replication launcher" (PID 31410) exited with exit code 1
+2023-03-29 18:52:38.573 CDT [31405] LOG:  shutting down
+2023-03-29 18:52:38.574 CDT [31405] LOG:  checkpoint starting: shutdown immediate
+2023-03-29 18:52:38.579 CDT [31405] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.003 s, sync=0.001 s, total=0.006 s; sync files=2, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=0 kB; lsn=0/1CC8DF0, redo lsn=0/1CC8DF0
+2023-03-29 18:52:38.587 CDT [31404] LOG:  database system is shut down
+2023-03-29 18:52:38.704 CDT [32856] LOG:  starting PostgreSQL 16devel on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0, 64-bit
+2023-03-29 18:52:38.704 CDT [32856] LOG:  listening on IPv6 address "::1", port 5432
+2023-03-29 18:52:38.704 CDT [32856] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2023-03-29 18:52:38.706 CDT [32856] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2023-03-29 18:52:38.710 CDT [32859] LOG:  database system was shut down at 2023-03-29 18:52:38 CDT
+2023-03-29 18:52:38.717 CDT [32856] LOG:  database system is ready to accept connections
+Successfully wrote to the file.
+Successfully wrote to the file.
+14: failed to connect to all addresses; last error: UNKNOWN: ipv4:127.0.0.1:50051: Failed to connect to remote host: Connection refused
+Successfully wrote to the file.
+2023-03-29 18:57:38.810 CDT [32857] LOG:  checkpoint starting: time
+2023-03-29 18:57:38.815 CDT [32857] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.002 s, sync=0.001 s, total=0.006 s; sync files=2, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=0 kB; lsn=0/1CC8ED8, redo lsn=0/1CC8EA0
+2023-03-29 19:00:15.162 CDT [32856] LOG:  received fast shutdown request
+2023-03-29 19:00:15.163 CDT [32856] LOG:  aborting any active transactions
+2023-03-29 19:00:15.166 CDT [32856] LOG:  background worker "logical replication launcher" (PID 32862) exited with exit code 1
+2023-03-29 19:00:15.166 CDT [32857] LOG:  shutting down
+2023-03-29 19:00:15.167 CDT [32857] LOG:  checkpoint starting: shutdown immediate
+2023-03-29 19:00:15.170 CDT [32857] LOG:  checkpoint complete: wrote 0 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=0, longest=0.000 s, average=0.000 s; distance=0 kB, estimate=0 kB; lsn=0/1CC8F88, redo lsn=0/1CC8F88
+2023-03-29 19:00:15.179 CDT [32856] LOG:  database system is shut down
+2023-03-29 19:00:15.298 CDT [35223] LOG:  starting PostgreSQL 16devel on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0, 64-bit
+2023-03-29 19:00:15.298 CDT [35223] LOG:  listening on IPv6 address "::1", port 5432
+2023-03-29 19:00:15.298 CDT [35223] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2023-03-29 19:00:15.299 CDT [35223] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2023-03-29 19:00:15.303 CDT [35226] LOG:  database system was shut down at 2023-03-29 19:00:15 CDT
+2023-03-29 19:00:15.311 CDT [35223] LOG:  database system is ready to accept connections
+Successfully wrote to the file.
+Successfully wrote to the file.
+Successfully wrote to the file.
+Successfully wrote to the file.
+Successfully wrote to the file.
+Successfully wrote to the file.
+2023-03-29 19:05:15.307 CDT [35224] LOG:  checkpoint starting: time
+2023-03-29 19:05:15.313 CDT [35224] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.002 s, sync=0.001 s, total=0.006 s; sync files=2, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=0 kB; lsn=0/1CC9070, redo lsn=0/1CC9038
+Successfully wrote to the file.
+Successfully wrote to the file.
+Successfully wrote to the file.
+Successfully wrote to the file.
+Successfully wrote to the file.
+Successfully wrote to the file.
+2023-03-29 19:22:58.274 CDT [35223] LOG:  received fast shutdown request
+2023-03-29 19:22:58.274 CDT [35223] LOG:  aborting any active transactions
+2023-03-29 19:22:58.278 CDT [35223] LOG:  background worker "logical replication launcher" (PID 35229) exited with exit code 1
+2023-03-29 19:22:58.278 CDT [35224] LOG:  shutting down
+2023-03-29 19:22:58.278 CDT [35224] LOG:  checkpoint starting: shutdown immediate
+2023-03-29 19:22:58.282 CDT [35224] LOG:  checkpoint complete: wrote 0 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=0, longest=0.000 s, average=0.000 s; distance=0 kB, estimate=0 kB; lsn=0/1CC9120, redo lsn=0/1CC9120
+2023-03-29 19:22:58.290 CDT [35223] LOG:  database system is shut down
+2023-03-29 19:22:58.419 CDT [39249] LOG:  starting PostgreSQL 16devel on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0, 64-bit
+2023-03-29 19:22:58.419 CDT [39249] LOG:  listening on IPv6 address "::1", port 5432
+2023-03-29 19:22:58.419 CDT [39249] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2023-03-29 19:22:58.421 CDT [39249] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2023-03-29 19:22:58.425 CDT [39252] LOG:  database system was shut down at 2023-03-29 19:22:58 CDT
+2023-03-29 19:22:58.432 CDT [39249] LOG:  database system is ready to accept connections
+Successfully wrote to the file.
+Successfully wrote to the file.
+2023-03-29 19:27:58.525 CDT [39250] LOG:  checkpoint starting: time
+2023-03-29 19:27:58.530 CDT [39250] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.002 s, sync=0.001 s, total=0.006 s; sync files=2, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=0 kB; lsn=0/1CC9208, redo lsn=0/1CC91D0
