@@ -59,12 +59,21 @@ class Greeter final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::postgresGRPC::HelloReply>> PrepareAsyncSayHello(::grpc::ClientContext* context, const ::postgresGRPC::HelloRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::postgresGRPC::HelloReply>>(PrepareAsyncSayHelloRaw(context, request, cq));
     }
+    virtual ::grpc::Status sendPlan(::grpc::ClientContext* context, const ::postgresGRPC::PlannedStmtRPC& request, ::postgresGRPC::HelloReply* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::postgresGRPC::HelloReply>> AsyncsendPlan(::grpc::ClientContext* context, const ::postgresGRPC::PlannedStmtRPC& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::postgresGRPC::HelloReply>>(AsyncsendPlanRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::postgresGRPC::HelloReply>> PrepareAsyncsendPlan(::grpc::ClientContext* context, const ::postgresGRPC::PlannedStmtRPC& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::postgresGRPC::HelloReply>>(PrepareAsyncsendPlanRaw(context, request, cq));
+    }
     class async_interface {
      public:
       virtual ~async_interface() {}
       // Sends a greeting
       virtual void SayHello(::grpc::ClientContext* context, const ::postgresGRPC::HelloRequest* request, ::postgresGRPC::HelloReply* response, std::function<void(::grpc::Status)>) = 0;
       virtual void SayHello(::grpc::ClientContext* context, const ::postgresGRPC::HelloRequest* request, ::postgresGRPC::HelloReply* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void sendPlan(::grpc::ClientContext* context, const ::postgresGRPC::PlannedStmtRPC* request, ::postgresGRPC::HelloReply* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void sendPlan(::grpc::ClientContext* context, const ::postgresGRPC::PlannedStmtRPC* request, ::postgresGRPC::HelloReply* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
@@ -72,6 +81,8 @@ class Greeter final {
    private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::postgresGRPC::HelloReply>* AsyncSayHelloRaw(::grpc::ClientContext* context, const ::postgresGRPC::HelloRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::postgresGRPC::HelloReply>* PrepareAsyncSayHelloRaw(::grpc::ClientContext* context, const ::postgresGRPC::HelloRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::postgresGRPC::HelloReply>* AsyncsendPlanRaw(::grpc::ClientContext* context, const ::postgresGRPC::PlannedStmtRPC& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::postgresGRPC::HelloReply>* PrepareAsyncsendPlanRaw(::grpc::ClientContext* context, const ::postgresGRPC::PlannedStmtRPC& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -83,11 +94,20 @@ class Greeter final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::postgresGRPC::HelloReply>> PrepareAsyncSayHello(::grpc::ClientContext* context, const ::postgresGRPC::HelloRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::postgresGRPC::HelloReply>>(PrepareAsyncSayHelloRaw(context, request, cq));
     }
+    ::grpc::Status sendPlan(::grpc::ClientContext* context, const ::postgresGRPC::PlannedStmtRPC& request, ::postgresGRPC::HelloReply* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::postgresGRPC::HelloReply>> AsyncsendPlan(::grpc::ClientContext* context, const ::postgresGRPC::PlannedStmtRPC& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::postgresGRPC::HelloReply>>(AsyncsendPlanRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::postgresGRPC::HelloReply>> PrepareAsyncsendPlan(::grpc::ClientContext* context, const ::postgresGRPC::PlannedStmtRPC& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::postgresGRPC::HelloReply>>(PrepareAsyncsendPlanRaw(context, request, cq));
+    }
     class async final :
       public StubInterface::async_interface {
      public:
       void SayHello(::grpc::ClientContext* context, const ::postgresGRPC::HelloRequest* request, ::postgresGRPC::HelloReply* response, std::function<void(::grpc::Status)>) override;
       void SayHello(::grpc::ClientContext* context, const ::postgresGRPC::HelloRequest* request, ::postgresGRPC::HelloReply* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void sendPlan(::grpc::ClientContext* context, const ::postgresGRPC::PlannedStmtRPC* request, ::postgresGRPC::HelloReply* response, std::function<void(::grpc::Status)>) override;
+      void sendPlan(::grpc::ClientContext* context, const ::postgresGRPC::PlannedStmtRPC* request, ::postgresGRPC::HelloReply* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -101,7 +121,10 @@ class Greeter final {
     class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::postgresGRPC::HelloReply>* AsyncSayHelloRaw(::grpc::ClientContext* context, const ::postgresGRPC::HelloRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::postgresGRPC::HelloReply>* PrepareAsyncSayHelloRaw(::grpc::ClientContext* context, const ::postgresGRPC::HelloRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::postgresGRPC::HelloReply>* AsyncsendPlanRaw(::grpc::ClientContext* context, const ::postgresGRPC::PlannedStmtRPC& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::postgresGRPC::HelloReply>* PrepareAsyncsendPlanRaw(::grpc::ClientContext* context, const ::postgresGRPC::PlannedStmtRPC& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_SayHello_;
+    const ::grpc::internal::RpcMethod rpcmethod_sendPlan_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -111,6 +134,7 @@ class Greeter final {
     virtual ~Service();
     // Sends a greeting
     virtual ::grpc::Status SayHello(::grpc::ServerContext* context, const ::postgresGRPC::HelloRequest* request, ::postgresGRPC::HelloReply* response);
+    virtual ::grpc::Status sendPlan(::grpc::ServerContext* context, const ::postgresGRPC::PlannedStmtRPC* request, ::postgresGRPC::HelloReply* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_SayHello : public BaseClass {
@@ -132,7 +156,27 @@ class Greeter final {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_SayHello<Service > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_sendPlan : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_sendPlan() {
+      ::grpc::Service::MarkMethodAsync(1);
+    }
+    ~WithAsyncMethod_sendPlan() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status sendPlan(::grpc::ServerContext* /*context*/, const ::postgresGRPC::PlannedStmtRPC* /*request*/, ::postgresGRPC::HelloReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestsendPlan(::grpc::ServerContext* context, ::postgresGRPC::PlannedStmtRPC* request, ::grpc::ServerAsyncResponseWriter< ::postgresGRPC::HelloReply>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_SayHello<WithAsyncMethod_sendPlan<Service > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_SayHello : public BaseClass {
    private:
@@ -160,7 +204,34 @@ class Greeter final {
     virtual ::grpc::ServerUnaryReactor* SayHello(
       ::grpc::CallbackServerContext* /*context*/, const ::postgresGRPC::HelloRequest* /*request*/, ::postgresGRPC::HelloReply* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_SayHello<Service > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_sendPlan : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_sendPlan() {
+      ::grpc::Service::MarkMethodCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::postgresGRPC::PlannedStmtRPC, ::postgresGRPC::HelloReply>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::postgresGRPC::PlannedStmtRPC* request, ::postgresGRPC::HelloReply* response) { return this->sendPlan(context, request, response); }));}
+    void SetMessageAllocatorFor_sendPlan(
+        ::grpc::MessageAllocator< ::postgresGRPC::PlannedStmtRPC, ::postgresGRPC::HelloReply>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::postgresGRPC::PlannedStmtRPC, ::postgresGRPC::HelloReply>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_sendPlan() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status sendPlan(::grpc::ServerContext* /*context*/, const ::postgresGRPC::PlannedStmtRPC* /*request*/, ::postgresGRPC::HelloReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* sendPlan(
+      ::grpc::CallbackServerContext* /*context*/, const ::postgresGRPC::PlannedStmtRPC* /*request*/, ::postgresGRPC::HelloReply* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_SayHello<WithCallbackMethod_sendPlan<Service > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_SayHello : public BaseClass {
@@ -175,6 +246,23 @@ class Greeter final {
     }
     // disable synchronous version of this method
     ::grpc::Status SayHello(::grpc::ServerContext* /*context*/, const ::postgresGRPC::HelloRequest* /*request*/, ::postgresGRPC::HelloReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_sendPlan : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_sendPlan() {
+      ::grpc::Service::MarkMethodGeneric(1);
+    }
+    ~WithGenericMethod_sendPlan() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status sendPlan(::grpc::ServerContext* /*context*/, const ::postgresGRPC::PlannedStmtRPC* /*request*/, ::postgresGRPC::HelloReply* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -200,6 +288,26 @@ class Greeter final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_sendPlan : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_sendPlan() {
+      ::grpc::Service::MarkMethodRaw(1);
+    }
+    ~WithRawMethod_sendPlan() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status sendPlan(::grpc::ServerContext* /*context*/, const ::postgresGRPC::PlannedStmtRPC* /*request*/, ::postgresGRPC::HelloReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestsendPlan(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithRawCallbackMethod_SayHello : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
@@ -219,6 +327,28 @@ class Greeter final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* SayHello(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_sendPlan : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_sendPlan() {
+      ::grpc::Service::MarkMethodRawCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->sendPlan(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_sendPlan() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status sendPlan(::grpc::ServerContext* /*context*/, const ::postgresGRPC::PlannedStmtRPC* /*request*/, ::postgresGRPC::HelloReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* sendPlan(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
@@ -248,9 +378,36 @@ class Greeter final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedSayHello(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::postgresGRPC::HelloRequest,::postgresGRPC::HelloReply>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_SayHello<Service > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_sendPlan : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_sendPlan() {
+      ::grpc::Service::MarkMethodStreamed(1,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::postgresGRPC::PlannedStmtRPC, ::postgresGRPC::HelloReply>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::postgresGRPC::PlannedStmtRPC, ::postgresGRPC::HelloReply>* streamer) {
+                       return this->StreamedsendPlan(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_sendPlan() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status sendPlan(::grpc::ServerContext* /*context*/, const ::postgresGRPC::PlannedStmtRPC* /*request*/, ::postgresGRPC::HelloReply* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedsendPlan(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::postgresGRPC::PlannedStmtRPC,::postgresGRPC::HelloReply>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_SayHello<WithStreamedUnaryMethod_sendPlan<Service > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_SayHello<Service > StreamedService;
+  typedef WithStreamedUnaryMethod_SayHello<WithStreamedUnaryMethod_sendPlan<Service > > StreamedService;
 };
 
 }  // namespace postgresGRPC

@@ -23,6 +23,7 @@ namespace postgresGRPC {
 
 static const char* Greeter_method_names[] = {
   "/postgresGRPC.Greeter/SayHello",
+  "/postgresGRPC.Greeter/sendPlan",
 };
 
 std::unique_ptr< Greeter::Stub> Greeter::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -33,6 +34,7 @@ std::unique_ptr< Greeter::Stub> Greeter::NewStub(const std::shared_ptr< ::grpc::
 
 Greeter::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
   : channel_(channel), rpcmethod_SayHello_(Greeter_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_sendPlan_(Greeter_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status Greeter::Stub::SayHello(::grpc::ClientContext* context, const ::postgresGRPC::HelloRequest& request, ::postgresGRPC::HelloReply* response) {
@@ -58,6 +60,29 @@ void Greeter::Stub::async::SayHello(::grpc::ClientContext* context, const ::post
   return result;
 }
 
+::grpc::Status Greeter::Stub::sendPlan(::grpc::ClientContext* context, const ::postgresGRPC::PlannedStmtRPC& request, ::postgresGRPC::HelloReply* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::postgresGRPC::PlannedStmtRPC, ::postgresGRPC::HelloReply, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_sendPlan_, context, request, response);
+}
+
+void Greeter::Stub::async::sendPlan(::grpc::ClientContext* context, const ::postgresGRPC::PlannedStmtRPC* request, ::postgresGRPC::HelloReply* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::postgresGRPC::PlannedStmtRPC, ::postgresGRPC::HelloReply, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_sendPlan_, context, request, response, std::move(f));
+}
+
+void Greeter::Stub::async::sendPlan(::grpc::ClientContext* context, const ::postgresGRPC::PlannedStmtRPC* request, ::postgresGRPC::HelloReply* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_sendPlan_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::postgresGRPC::HelloReply>* Greeter::Stub::PrepareAsyncsendPlanRaw(::grpc::ClientContext* context, const ::postgresGRPC::PlannedStmtRPC& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::postgresGRPC::HelloReply, ::postgresGRPC::PlannedStmtRPC, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_sendPlan_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::postgresGRPC::HelloReply>* Greeter::Stub::AsyncsendPlanRaw(::grpc::ClientContext* context, const ::postgresGRPC::PlannedStmtRPC& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncsendPlanRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
 Greeter::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Greeter_method_names[0],
@@ -69,12 +94,29 @@ Greeter::Service::Service() {
              ::postgresGRPC::HelloReply* resp) {
                return service->SayHello(ctx, req, resp);
              }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Greeter_method_names[1],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Greeter::Service, ::postgresGRPC::PlannedStmtRPC, ::postgresGRPC::HelloReply, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Greeter::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::postgresGRPC::PlannedStmtRPC* req,
+             ::postgresGRPC::HelloReply* resp) {
+               return service->sendPlan(ctx, req, resp);
+             }, this)));
 }
 
 Greeter::Service::~Service() {
 }
 
 ::grpc::Status Greeter::Service::SayHello(::grpc::ServerContext* context, const ::postgresGRPC::HelloRequest* request, ::postgresGRPC::HelloReply* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status Greeter::Service::sendPlan(::grpc::ServerContext* context, const ::postgresGRPC::PlannedStmtRPC* request, ::postgresGRPC::HelloReply* response) {
   (void) context;
   (void) request;
   (void) response;

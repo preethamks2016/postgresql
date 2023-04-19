@@ -37,6 +37,8 @@ using grpc::Status;
 using postgresGRPC::Greeter;
 using postgresGRPC::HelloReply;
 using postgresGRPC::HelloRequest;
+using postgresGRPC::PlannedStmtRPC;
+
 
 // Logic and data behind the server's behavior.
 class GreeterServiceImpl final : public Greeter::Service {
@@ -45,6 +47,15 @@ class GreeterServiceImpl final : public Greeter::Service {
     std::cout << "received message: " << request->name() << std::endl;
     std::string prefix("Hello ");
     reply->set_message(prefix + request->name());
+    
+    return Status::OK;
+  }
+
+  Status sendPlan(ServerContext* context, const PlannedStmtRPC* request,
+                  HelloReply* reply) override {
+    std::cout << "received plan message: " << request->plan_width() << std::endl;
+    std::string ack("Server ack: plan received");
+    reply->set_message(ack);
     
     return Status::OK;
   }

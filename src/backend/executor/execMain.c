@@ -68,7 +68,6 @@
 #include "utils/ruleutils.h"
 #include "utils/snapmgr.h"
 
-#include "/users/pankajkr/postgresql/src/grpc/client.h"
 
 
 /* Hooks for plugins to get control in ExecutorStart/Run/Finish/End */
@@ -807,9 +806,6 @@ InitPlan(QueryDesc *queryDesc, int eflags)
 	TupleDesc	tupType;
 	ListCell   *l;
 	int			i;
-
-	initClient();
-	SayHello("Hi there");
 
 	/*
 	 * Do permissions checks

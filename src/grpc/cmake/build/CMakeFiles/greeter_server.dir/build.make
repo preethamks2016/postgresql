@@ -129,6 +129,10 @@ greeter_server: /users/pankajkr/.local/lib/libabsl_cord_internal.a
 greeter_server: /users/pankajkr/.local/lib/libabsl_cordz_functions.a
 greeter_server: /users/pankajkr/.local/lib/libabsl_exponential_biased.a
 greeter_server: /users/pankajkr/.local/lib/libabsl_cordz_handle.a
+greeter_server: /users/pankajkr/.local/lib/libabsl_crc_cord_state.a
+greeter_server: /users/pankajkr/.local/lib/libabsl_crc32c.a
+greeter_server: /users/pankajkr/.local/lib/libabsl_crc_internal.a
+greeter_server: /users/pankajkr/.local/lib/libabsl_crc_cpu_detect.a
 greeter_server: /users/pankajkr/.local/lib/libabsl_str_format_internal.a
 greeter_server: /users/pankajkr/.local/lib/libabsl_synchronization.a
 greeter_server: /users/pankajkr/.local/lib/libabsl_stacktrace.a

@@ -68,6 +68,9 @@
 #include "utils/selfuncs.h"
 #include "utils/syscache.h"
 
+#include "/users/pankajkr/postgresql/src/grpc/client.h"
+
+
 /* GUC parameters */
 double		cursor_tuple_fraction = DEFAULT_CURSOR_TUPLE_FRACTION;
 int			debug_parallel_query = DEBUG_PARALLEL_OFF;
@@ -274,11 +277,52 @@ planner(Query *parse, const char *query_string, int cursorOptions,
 		ParamListInfo boundParams)
 {
 	PlannedStmt *result;
+	char str[] = "Hello, from planner 2!";
+	char str1[1000];
 
-	if (planner_hook)
+	FILE *fp;
+	
+	// open file for writing
+    fp = fopen("/users/pankajkr/log_planner.txt", "w");
+
+	if (planner_hook) {
 		result = (*planner_hook) (parse, query_string, cursorOptions, boundParams);
-	else
+		fprintf(fp, "%s", "planner_hook\n");
+	}
+	else {
 		result = standard_planner(parse, query_string, cursorOptions, boundParams);
+		fprintf(fp, "%s", "else\n");
+	}
+	
+	initClient();
+	SayHello("Hello from planner");
+
+    // write string to file using fprintf()
+	fprintf(fp, "%s", "hello1\n");
+    fprintf(fp, "%s", query_string);
+	fprintf(fp, "%s", "\n");
+	fprintf(fp, "%d", result->planTree->plan_width);
+	fprintf(fp, "%s", "\n");
+	fprintf(fp, "%lf", result->planTree->total_cost);
+	fprintf(fp, "%s", "\n");
+	fprintf(fp, "%d", result->planTree->plan_node_id);
+	fprintf(fp, "%s", "\n");
+	fprintf(fp, "%ld", result->queryId);
+	fprintf(fp, "%s", "\n");
+	fprintf(fp, "%d", result->stmt_location);
+	fprintf(fp, "%s", "\n");
+	fprintf(fp, "%d", result->stmt_len);
+	fprintf(fp, "%s", "\n");
+	fprintf(fp, "%d", result->jitFlags);
+    // close file
+    fclose(fp);
+
+	sendPlan(result->planTree->plan_width);
+
+	sprintf(str1, "%s", query_string);
+	// sprintf(str, "%ld", result->queryId);
+	SayHello(str1);
+
 	return result;
 }
 

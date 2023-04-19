@@ -22,6 +22,10 @@
 #include <string>
 
 #include <grpcpp/grpcpp.h>
+#include "client.h"
+
+// #include "/users/pankajkr/postgresql/src/include/nodes/plannodes.h"
+
 
 #ifdef BAZEL_BUILD
 #include "examples/protos/helloworld.grpc.pb.h"
@@ -35,11 +39,11 @@ using grpc::Status;
 using postgresGRPC::Greeter;
 using postgresGRPC::HelloReply;
 using postgresGRPC::HelloRequest;
+using postgresGRPC::PlannedStmtRPC;
 
 using namespace std;
 
 #include "string.h"
-#include "client.h"
 
 class GreeterClient {
  public:
@@ -76,6 +80,31 @@ class GreeterClient {
     }
   }
 
+  std::string sendPlan(int plan_width) {
+    // Data we are sending to the server.
+    PlannedStmtRPC request;
+    request.set_plan_width(plan_width);
+
+    // Container for the data we expect from the server.
+    HelloReply reply;
+
+    // Context for the client. It could be used to convey extra information to
+    // the server and/or tweak certain RPC behaviors.
+    ClientContext context;
+
+    // The actual RPC.
+    Status status = stub_->sendPlan(&context, request, &reply);
+
+    // Act upon its status.
+    if (status.ok()) {
+      return reply.message();
+    } else {
+      std::cout << status.error_code() << ": " << status.error_message()
+                << std::endl;
+      return "RPC failed";
+    }
+  }
+
  private:
   std::unique_ptr<Greeter::Stub> stub_;
 };
@@ -87,10 +116,19 @@ extern "C" int SayHello(char message[]) {
     return 0;
 }
 
+extern "C" int sendPlan(int plan_width) {
+    // RPC is created and response is stored
+    string msg;
+    msg = "sendPlan was called";
+    client.SayHello(msg);
+    client.sendPlan(plan_width);
+    return 0;
+}
+
 extern "C" void initClient() {
 
 
-   std::ofstream outputFile("/users/pankajkr/grpc/examples/cpp/helloworld/cmake/build/log_client.txt"); // create a new file called "example.txt"
+   std::ofstream outputFile("/users/pankajkr/log_client.txt"); // create a new file called "example.txt"
 
   if (outputFile.is_open()) { // check if the file is opened successfully
     outputFile << "Init function was called"; // write "Hello, world!" to the file

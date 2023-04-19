@@ -47,8 +47,21 @@ struct HelloReplyDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HelloReplyDefaultTypeInternal _HelloReply_default_instance_;
+PROTOBUF_CONSTEXPR PlannedStmtRPC::PlannedStmtRPC(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.plan_width_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct PlannedStmtRPCDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR PlannedStmtRPCDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~PlannedStmtRPCDefaultTypeInternal() {}
+  union {
+    PlannedStmtRPC _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PlannedStmtRPCDefaultTypeInternal _PlannedStmtRPC_default_instance_;
 }  // namespace postgresGRPC
-static ::_pb::Metadata file_level_metadata_helloworld_2eproto[2];
+static ::_pb::Metadata file_level_metadata_helloworld_2eproto[3];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_helloworld_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_helloworld_2eproto = nullptr;
 
@@ -67,30 +80,42 @@ const uint32_t TableStruct_helloworld_2eproto::offsets[] PROTOBUF_SECTION_VARIAB
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::postgresGRPC::HelloReply, _impl_.message_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::postgresGRPC::PlannedStmtRPC, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::postgresGRPC::PlannedStmtRPC, _impl_.plan_width_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::postgresGRPC::HelloRequest)},
   { 7, -1, -1, sizeof(::postgresGRPC::HelloReply)},
+  { 14, -1, -1, sizeof(::postgresGRPC::PlannedStmtRPC)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
   &::postgresGRPC::_HelloRequest_default_instance_._instance,
   &::postgresGRPC::_HelloReply_default_instance_._instance,
+  &::postgresGRPC::_PlannedStmtRPC_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_helloworld_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\020helloworld.proto\022\014postgresGRPC\"\034\n\014Hell"
   "oRequest\022\014\n\004name\030\001 \001(\t\"\035\n\nHelloReply\022\017\n\007"
-  "message\030\001 \001(\t2M\n\007Greeter\022B\n\010SayHello\022\032.p"
-  "ostgresGRPC.HelloRequest\032\030.postgresGRPC."
-  "HelloReply\"\000B6\n\033io.grpc.examples.hellowo"
-  "rldB\017HelloWorldProtoP\001\242\002\003HLWb\006proto3"
+  "message\030\001 \001(\t\"$\n\016PlannedStmtRPC\022\022\n\nplan_"
+  "width\030\001 \001(\0052\223\001\n\007Greeter\022B\n\010SayHello\022\032.po"
+  "stgresGRPC.HelloRequest\032\030.postgresGRPC.H"
+  "elloReply\"\000\022D\n\010sendPlan\022\034.postgresGRPC.P"
+  "lannedStmtRPC\032\030.postgresGRPC.HelloReply\""
+  "\000B6\n\033io.grpc.examples.helloworldB\017HelloW"
+  "orldProtoP\001\242\002\003HLWb\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_helloworld_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_helloworld_2eproto = {
-    false, false, 236, descriptor_table_protodef_helloworld_2eproto,
+    false, false, 345, descriptor_table_protodef_helloworld_2eproto,
     "helloworld.proto",
-    &descriptor_table_helloworld_2eproto_once, nullptr, 0, 2,
+    &descriptor_table_helloworld_2eproto_once, nullptr, 0, 3,
     schemas, file_default_instances, TableStruct_helloworld_2eproto::offsets,
     file_level_metadata_helloworld_2eproto, file_level_enum_descriptors_helloworld_2eproto,
     file_level_service_descriptors_helloworld_2eproto,
@@ -509,6 +534,184 @@ void HelloReply::InternalSwap(HelloReply* other) {
       file_level_metadata_helloworld_2eproto[1]);
 }
 
+// ===================================================================
+
+class PlannedStmtRPC::_Internal {
+ public:
+};
+
+PlannedStmtRPC::PlannedStmtRPC(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:postgresGRPC.PlannedStmtRPC)
+}
+PlannedStmtRPC::PlannedStmtRPC(const PlannedStmtRPC& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  PlannedStmtRPC* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.plan_width_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.plan_width_ = from._impl_.plan_width_;
+  // @@protoc_insertion_point(copy_constructor:postgresGRPC.PlannedStmtRPC)
+}
+
+inline void PlannedStmtRPC::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.plan_width_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+PlannedStmtRPC::~PlannedStmtRPC() {
+  // @@protoc_insertion_point(destructor:postgresGRPC.PlannedStmtRPC)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void PlannedStmtRPC::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void PlannedStmtRPC::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void PlannedStmtRPC::Clear() {
+// @@protoc_insertion_point(message_clear_start:postgresGRPC.PlannedStmtRPC)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.plan_width_ = 0;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* PlannedStmtRPC::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // int32 plan_width = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _impl_.plan_width_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* PlannedStmtRPC::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:postgresGRPC.PlannedStmtRPC)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // int32 plan_width = 1;
+  if (this->_internal_plan_width() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_plan_width(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:postgresGRPC.PlannedStmtRPC)
+  return target;
+}
+
+size_t PlannedStmtRPC::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:postgresGRPC.PlannedStmtRPC)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int32 plan_width = 1;
+  if (this->_internal_plan_width() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_plan_width());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData PlannedStmtRPC::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
+    PlannedStmtRPC::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*PlannedStmtRPC::GetClassData() const { return &_class_data_; }
+
+
+void PlannedStmtRPC::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<PlannedStmtRPC*>(&to_msg);
+  auto& from = static_cast<const PlannedStmtRPC&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:postgresGRPC.PlannedStmtRPC)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_plan_width() != 0) {
+    _this->_internal_set_plan_width(from._internal_plan_width());
+  }
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void PlannedStmtRPC::CopyFrom(const PlannedStmtRPC& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:postgresGRPC.PlannedStmtRPC)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PlannedStmtRPC::IsInitialized() const {
+  return true;
+}
+
+void PlannedStmtRPC::InternalSwap(PlannedStmtRPC* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.plan_width_, other->_impl_.plan_width_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata PlannedStmtRPC::GetMetadata() const {
+  return ::_pbi::AssignDescriptors(
+      &descriptor_table_helloworld_2eproto_getter, &descriptor_table_helloworld_2eproto_once,
+      file_level_metadata_helloworld_2eproto[2]);
+}
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace postgresGRPC
 PROTOBUF_NAMESPACE_OPEN
@@ -519,6 +722,10 @@ Arena::CreateMaybeMessage< ::postgresGRPC::HelloRequest >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::postgresGRPC::HelloReply*
 Arena::CreateMaybeMessage< ::postgresGRPC::HelloReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::postgresGRPC::HelloReply >(arena);
+}
+template<> PROTOBUF_NOINLINE ::postgresGRPC::PlannedStmtRPC*
+Arena::CreateMaybeMessage< ::postgresGRPC::PlannedStmtRPC >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::postgresGRPC::PlannedStmtRPC >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

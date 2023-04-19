@@ -71,7 +71,7 @@ include CMakeFiles/hw_grpc_proto.dir/flags.make
 
 helloworld.pb.cc: /users/pankajkr/postgresql/src/grpc/protos/helloworld.proto
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/users/pankajkr/postgresql/src/grpc/cmake/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating helloworld.pb.cc, helloworld.pb.h, helloworld.grpc.pb.cc, helloworld.grpc.pb.h"
-	/users/pankajkr/.local/bin/protoc-3.21.6.0 --grpc_out /users/pankajkr/postgresql/src/grpc/cmake/build --cpp_out /users/pankajkr/postgresql/src/grpc/cmake/build -I /users/pankajkr/postgresql/src/grpc/protos --plugin=protoc-gen-grpc="/users/pankajkr/.local/bin/grpc_cpp_plugin" /users/pankajkr/postgresql/src/grpc/protos/helloworld.proto
+	/users/pankajkr/.local/bin/protoc-3.21.12.0 --grpc_out /users/pankajkr/postgresql/src/grpc/cmake/build --cpp_out /users/pankajkr/postgresql/src/grpc/cmake/build -I /users/pankajkr/postgresql/src/grpc/protos --plugin=protoc-gen-grpc="/users/pankajkr/.local/bin/grpc_cpp_plugin" /users/pankajkr/postgresql/src/grpc/protos/helloworld.proto
 
 helloworld.pb.h: helloworld.pb.cc
 	@$(CMAKE_COMMAND) -E touch_nocreate helloworld.pb.h

@@ -11,4 +11,9 @@ int SayHello(char message[]);
 #ifdef __cplusplus
 extern "C"
 #endif
+int sendPlan(int plan_width);
+
+#ifdef __cplusplus
+extern "C"
+#endif
 void initClient();
