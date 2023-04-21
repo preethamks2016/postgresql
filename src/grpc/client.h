@@ -1,3 +1,5 @@
+
+
 #ifdef __cplusplus
 class GreeterClient;
 extern GreeterClient client;
@@ -11,7 +13,8 @@ int SayHello(char message[]);
 #ifdef __cplusplus
 extern "C"
 #endif
-int sendPlan(int plan_width);
+int sendPlan(char* inputStr);
+//int sendPlan(int plan_width);
 
 #ifdef __cplusplus
 extern "C"

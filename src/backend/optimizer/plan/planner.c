@@ -296,10 +296,16 @@ planner(Query *parse, const char *query_string, int cursorOptions,
 	
 	initClient();
 	SayHello("Hello from planner");
+    // sending the entire planned statement here
+    char *liststring;
+    //liststring = nodeToString(result->planTree->targetlist);
+    liststring = nodeToString(result);
 
     // write string to file using fprintf()
 	fprintf(fp, "%s", "hello1\n");
     fprintf(fp, "%s", query_string);
+    fprintf(fp, "%s", "printing targetlist\n");
+    fprintf(fp, "%s", liststring);
 	fprintf(fp, "%s", "\n");
 	fprintf(fp, "%d", result->planTree->plan_width);
 	fprintf(fp, "%s", "\n");
@@ -317,7 +323,8 @@ planner(Query *parse, const char *query_string, int cursorOptions,
     // close file
     fclose(fp);
 
-	sendPlan(result->planTree->plan_width);
+	//sendPlan(result->planTree->plan_width);
+    sendPlan(liststring);
 
 	sprintf(str1, "%s", query_string);
 	// sprintf(str, "%ld", result->queryId);

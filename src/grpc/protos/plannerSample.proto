@@ -33,18 +33,61 @@ message TargetList {
     repeated TargetEntry targetEntries = 1;
 }
 
+// Relation Oids
+message relationOid {
+    Oid relOid = 1;
+}
+
+message relationsOids {
+    repeated relationOid relationsOids = 1;
+}
+
+// rtable : Range table entries
+// primnodes.h
+message Alias{
+    string aliasname = 1;
+    repeated string colnames = 2;
+}
+
+// RangeTblEntry - parsenodes.h
+message RangeTableEntry {
+    Alias eref = 1;
+    Oid relid = 2;
+}
+
+message rtable {
+    repeated RangeTableEntry rangeTableEntries = 1;
+}
+
 // define a constant int, for qualification conditions
 message constantInt {
     int32 constInt = 1;
 }
 
-
+//primnodes.h - OpExpr
 message OpExpr{
-    Oid oid = 1;
+    Oid opno = 1;
+// define a constant int, for qualification conditions
+message constantInt {
+    int32 constInt = 1;
 }
 
+//primnodes.h - OpExpr
+message OpExpr{
+    Oid opno = 1;
 
+}
 
+//primnodes.h Var struct
+message Var {
+    Oid relid = 1;
+    int32 attrNumber = 2;
+}
+
+// define a constant int, for qualification conditions
+ message constantInt {
+     int32 constInt = 1;
+ }
 
 
 

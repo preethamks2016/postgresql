@@ -24,7 +24,8 @@
 #include <grpcpp/grpcpp.h>
 #include "client.h"
 
-// #include "/users/pankajkr/postgresql/src/include/nodes/plannodes.h"
+
+//  #include "/users/pankajkr/postgresql/src/include/nodes/plannodes.h"
 
 
 #ifdef BAZEL_BUILD
@@ -116,12 +117,22 @@ extern "C" int SayHello(char message[]) {
     return 0;
 }
 
-extern "C" int sendPlan(int plan_width) {
+//extern "C" int sendPlan(int plan_width) {
+//    // RPC is created and response is stored
+//    string msg;
+//    msg = "sendPlan was called";
+//    client.SayHello(msg);
+//    // client.sendPlan(plan_width);
+//    client.sendPlan(plan_width);
+//    return 0;
+//}
+
+extern "C" int sendPlan(char* inputStr) {
     // RPC is created and response is stored
-    string msg;
-    msg = "sendPlan was called";
+    string msg(inputStr);
+    // msg = "sendPlan was called";
     client.SayHello(msg);
-    client.sendPlan(plan_width);
+    client.sendPlan(62);
     return 0;
 }
 

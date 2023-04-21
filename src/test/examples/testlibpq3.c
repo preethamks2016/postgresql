@@ -164,7 +164,8 @@ main(int argc, char **argv)
 	 */
 
 	/* Here is our out-of-line parameter value */
-	paramValues[0] = "joe's place";
+    // paramValues[0] = "joe's place";
+    paramValues[0] = "1";
 
 	res = PQexecParams(conn,
 					   "SELECT * FROM test1 WHERE t = $1",
@@ -196,33 +197,33 @@ main(int argc, char **argv)
 	 * binary parameters.
 	 */
 
-	/* Convert integer value "2" to network byte order */
-	binaryIntVal = htonl((uint32_t) 2);
-
-	/* Set up parameter arrays for PQexecParams */
-	paramValues[0] = (char *) &binaryIntVal;
-	paramLengths[0] = sizeof(binaryIntVal);
-	paramFormats[0] = 1;		/* binary */
-
-	res = PQexecParams(conn,
-					   "SELECT * FROM test1 WHERE i = $1::int4",
-					   1,		/* one param */
-					   NULL,	/* let the backend deduce param type */
-					   paramValues,
-					   paramLengths,
-					   paramFormats,
-					   1);		/* ask for binary results */
-
-	if (PQresultStatus(res) != PGRES_TUPLES_OK)
-	{
-		fprintf(stderr, "SELECT failed: %s", PQerrorMessage(conn));
-		PQclear(res);
-		exit_nicely(conn);
-	}
-
-	show_binary_results(res);
-
-	PQclear(res);
+//	/* Convert integer value "2" to network byte order */
+//	binaryIntVal = htonl((uint32_t) 2);
+//
+//	/* Set up parameter arrays for PQexecParams */
+//	paramValues[0] = (char *) &binaryIntVal;
+//	paramLengths[0] = sizeof(binaryIntVal);
+//	paramFormats[0] = 1;		/* binary */
+//
+//	res = PQexecParams(conn,
+//					   "SELECT * FROM test1 WHERE i = $1::int4",
+//					   1,		/* one param */
+//					   NULL,	/* let the backend deduce param type */
+//					   paramValues,
+//					   paramLengths,
+//					   paramFormats,
+//					   1);		/* ask for binary results */
+//
+//	if (PQresultStatus(res) != PGRES_TUPLES_OK)
+//	{
+//		fprintf(stderr, "SELECT failed: %s", PQerrorMessage(conn));
+//		PQclear(res);
+//		exit_nicely(conn);
+//	}
+//
+//	show_binary_results(res);
+//
+//	PQclear(res);
 
 	/* close the connection to the database and cleanup */
 	PQfinish(conn);
