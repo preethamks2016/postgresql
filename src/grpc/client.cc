@@ -132,7 +132,7 @@ extern "C" int sendPlan(char* inputStr) {
     string msg(inputStr);
     // msg = "sendPlan was called";
     client.SayHello(msg);
-    client.sendPlan(62);
+    // client.sendPlan(62);
     return 0;
 }
 

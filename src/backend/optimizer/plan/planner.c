@@ -302,34 +302,40 @@ planner(Query *parse, const char *query_string, int cursorOptions,
     liststring = nodeToString(result);
 
     // write string to file using fprintf()
-	fprintf(fp, "%s", "hello1\n");
-    fprintf(fp, "%s", query_string);
-    fprintf(fp, "%s", "printing targetlist\n");
-    fprintf(fp, "%s", liststring);
-	fprintf(fp, "%s", "\n");
-	fprintf(fp, "%d", result->planTree->plan_width);
-	fprintf(fp, "%s", "\n");
-	fprintf(fp, "%lf", result->planTree->total_cost);
-	fprintf(fp, "%s", "\n");
-	fprintf(fp, "%d", result->planTree->plan_node_id);
-	fprintf(fp, "%s", "\n");
-	fprintf(fp, "%ld", result->queryId);
-	fprintf(fp, "%s", "\n");
-	fprintf(fp, "%d", result->stmt_location);
-	fprintf(fp, "%s", "\n");
-	fprintf(fp, "%d", result->stmt_len);
-	fprintf(fp, "%s", "\n");
-	fprintf(fp, "%d", result->jitFlags);
+	// fprintf(fp, "%s", "hello1\n");
+    // fprintf(fp, "%s", query_string);
+    // fprintf(fp, "%s", "printing targetlist\n");
+    // fprintf(fp, "%s", liststring);
+	// fprintf(fp, "%s", "\n");
+	// fprintf(fp, "%d", result->planTree->plan_width);
+	// fprintf(fp, "%s", "\n");
+	// fprintf(fp, "%lf", result->planTree->total_cost);
+	// fprintf(fp, "%s", "\n");
+	// fprintf(fp, "%d", result->planTree->plan_node_id);
+	// fprintf(fp, "%s", "\n");
+	// fprintf(fp, "%ld", result->queryId);
+	// fprintf(fp, "%s", "\n");
+	// fprintf(fp, "%d", result->stmt_location);
+	// fprintf(fp, "%s", "\n");
+	// fprintf(fp, "%d", result->stmt_len);
+	// fprintf(fp, "%s", "\n");
+	// fprintf(fp, "%d", result->jitFlags);
     // close file
-    fclose(fp);
+    
 
 	//sendPlan(result->planTree->plan_width);
     sendPlan(liststring);
+	PlannedStmt * plannedStmt = (PlannedStmt *) stringToNode(liststring);
+	fprintf(fp, "%s", "hello1\n");
+	fprintf(fp, "%d", plannedStmt->planTree->plan_width);
+	fprintf(fp, "%s", "\n");
+	fprintf(fp, "%d", plannedStmt->commandType);
 
 	sprintf(str1, "%s", query_string);
 	// sprintf(str, "%ld", result->queryId);
 	SayHello(str1);
 
+	fclose(fp);
 	return result;
 }
 
