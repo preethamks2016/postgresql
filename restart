@@ -1,0 +1,4 @@
+make
+sudo make install
+/usr/local/pgsql/bin/pg_ctl -D /usr/local/pgsql/pankajkrdata -l logfile restart 
+

@@ -330,7 +330,11 @@ planner(Query *parse, const char *query_string, int cursorOptions,
 	fprintf(fp, "%d", plannedStmt->planTree->plan_width);
 	fprintf(fp, "%s", "\n");
 	fprintf(fp, "%d", plannedStmt->commandType);
-
+	fprintf(fp, "%s", "\n");
+	SeqScan * sqscan = (SeqScan *) plannedStmt->planTree;
+	fprintf(fp, "%d", sqscan->scan.scanrelid);
+	fprintf(fp, "%s", "\n");
+	
 	sprintf(str1, "%s", query_string);
 	// sprintf(str, "%ld", result->queryId);
 	SayHello(str1);
