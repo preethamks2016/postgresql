@@ -34,7 +34,7 @@
 #include "utils/rel.h"
 
 //#include "/users/pankajkr/grpc/examples/cpp/helloworld/client.h"
-#include "/users/pankajkr/postgresql/src/grpc/client.h"
+#include "/users/deepti96/other-pg/postgresql/src/grpc/client.h"
 
 static TupleTableSlot *SeqNext(SeqScanState *node);
 

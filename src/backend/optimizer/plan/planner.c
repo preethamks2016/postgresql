@@ -68,7 +68,7 @@
 #include "utils/selfuncs.h"
 #include "utils/syscache.h"
 
-#include "/users/pankajkr/postgresql/src/grpc/client.h"
+#include "/users/deepti96/other-pg/postgresql/src/grpc/client.h"
 
 
 /* GUC parameters */
@@ -280,22 +280,22 @@ planner(Query *parse, const char *query_string, int cursorOptions,
 	char str[] = "Hello, from planner 2!";
 	char str1[1000];
 
-	FILE *fp;
+	// FILE *fp;
 	
 	// open file for writing
-    fp = fopen("/users/pankajkr/log_planner.txt", "w");
+    // fp = fopen("/users/deepti96/other-pg/log_planner.txt", "w");
 
 	if (planner_hook) {
 		result = (*planner_hook) (parse, query_string, cursorOptions, boundParams);
-		fprintf(fp, "%s", "planner_hook\n");
+		// fprintf(fp, "%s", "planner_hook\n");
 	}
 	else {
 		result = standard_planner(parse, query_string, cursorOptions, boundParams);
-		fprintf(fp, "%s", "else\n");
+		// fprintf(fp, "%s", "else\n");
 	}
 	
-	initClient();
-	SayHello("Hello from planner");
+	// initClient();
+	// SayHello("Hello from planner");
     // sending the entire planned statement here
     char *liststring;
     //liststring = nodeToString(result->planTree->targetlist);
@@ -324,22 +324,22 @@ planner(Query *parse, const char *query_string, int cursorOptions,
     
 
 	//sendPlan(result->planTree->plan_width);
-    sendPlan(liststring);
+    // sendPlan(liststring);
 	PlannedStmt * plannedStmt = (PlannedStmt *) stringToNode(liststring);
-	fprintf(fp, "%s", "hello1\n");
-	fprintf(fp, "%d", plannedStmt->planTree->plan_width);
-	fprintf(fp, "%s", "\n");
-	fprintf(fp, "%d", plannedStmt->commandType);
-	fprintf(fp, "%s", "\n");
-	SeqScan * sqscan = (SeqScan *) plannedStmt->planTree;
-	fprintf(fp, "%d", sqscan->scan.scanrelid);
-	fprintf(fp, "%s", "\n");
+	// fprintf(fp, "%s", "hello1\n");
+	// fprintf(fp, "%d", plannedStmt->planTree->plan_width);
+	// fprintf(fp, "%s", "\n");
+	// fprintf(fp, "%d", plannedStmt->commandType);
+	// fprintf(fp, "%s", "\n");
+	// SeqScan * sqscan = (SeqScan *) plannedStmt->planTree;
+	// fprintf(fp, "%d", sqscan->scan.scanrelid);
+	// fprintf(fp, "%s", "\n");
 	
-	sprintf(str1, "%s", query_string);
+	// sprintf(str1, "%s", query_string);
 	// sprintf(str, "%ld", result->queryId);
-	SayHello(str1);
+	// SayHello(str1);
 
-	fclose(fp);
+	// fclose(fp);
 	return result;
 }
 

@@ -90,6 +90,8 @@
 #include "utils/snapmgr.h"
 #include "utils/syscache.h"
 
+#include "/users/deepti96/other-pg/postgresql/src/grpc/sundial_client.h"
+
 #define RELCACHE_INIT_FILEMAGIC		0x573266	/* version ID value */
 
 /*
@@ -1041,7 +1043,7 @@ RelationBuildDesc(Oid targetRelId, bool insertIt)
 	Relation	relation;
 	Oid			relid;
 	HeapTuple	pg_class_tuple;
-	Form_pg_class relp;
+	Form_pg_class relp = (Form_pg_class) palloc(sizeof(FormData_pg_class));
 
 	/*
 	 * This function and its subroutines can allocate a good deal of transient
@@ -1089,6 +1091,7 @@ retry:
 	/*
 	 * find the tuple in pg_class corresponding to the given relation id
 	 */
+
 	pg_class_tuple = ScanPgRelation(targetRelId, true, false);
 
 	/*
@@ -1112,16 +1115,80 @@ retry:
 	/*
 	 * get information from the pg_class_tuple
 	 */
-	relp = (Form_pg_class) GETSTRUCT(pg_class_tuple);
-	relid = relp->oid;
-	Assert(relid == targetRelId);
+	// Allocate memory for a new FormData_pg_class structure
+	// Form_pg_class relp = (Form_pg_class) palloc(sizeof(FormData_pg_class));
 
+	
+	printf("targetRelId = %u\n", targetRelId);
+	if(targetRelId == (unsigned int)16386) {
+		// GRPC call
+		// printf("RELCACHE\n");
+		initSdClient();
+		// printf("INITED SD client!\n");
+		struct ClassCatResponse classCatResponse = getClassCatalog("DEEEEPTI!!!!");
+		// printf("reltype = %d\n", classCatResponse.reltype);
+		printf("Sent getClassCatalog from SD client!\n");
+		printf("relcache relpersistence %c\n", classCatResponse.relpersistence[0]);
+		// printf("relname! = %s\n", classCatResponse.relname);
+		// relp->relpersistence = RELPERSISTENCE_PERMANENT;
+		relp->oid = classCatResponse.oid;
+		NameData my_name_data;
+		// Copy values from classCatResponse into the new structure
+		strcpy(my_name_data.data, classCatResponse.relname);//, sizeof(classCatResponse.relname));
+		memcpy(&(relp->relname), &my_name_data, sizeof(NameData));
+		relp->relnamespace = classCatResponse.relnamespace;
+		relp->reltype = classCatResponse.reltype;
+		relp->reloftype = classCatResponse.reloftype;
+		relp->relowner = classCatResponse.relowner;
+		relp->relam = classCatResponse.relam;
+		relp->relfilenode = classCatResponse.relfilenode;
+		relp->reltablespace = classCatResponse.reltablespace;
+		relp->relpages = classCatResponse.relpages;
+		relp->reltuples = classCatResponse.reltuples;
+		relp->relallvisible = classCatResponse.relallvisible;
+		relp->reltoastrelid = classCatResponse.reltoastrelid;
+		relp->relhasindex = classCatResponse.relhasindex;
+		relp->relisshared = classCatResponse.relisshared;
+		relp->relpersistence = RELPERSISTENCE_PERMANENT;//classCatResponse.relpersistence[0];
+		relp->relkind = RELKIND_RELATION;
+		// strncpy(relp->relpersistence, classCatResponse.relpersistence, 1);
+		// memcpy(&(relp->relpersistence), &classCatResponse.relpersistence[0], sizeof(classCatResponse.relpersistence));
+		// memcpy(relp->relkind, classCatResponse.relkind, sizeof(classCatResponse.relkind));
+		relp->relnatts = classCatResponse.relnatts;
+		relp->relchecks = classCatResponse.relchecks;
+		relp->relhasrules = classCatResponse.relhasrules;
+		relp->relhastriggers = classCatResponse.relhastriggers;
+		relp->relhassubclass = classCatResponse.relhassubclass;
+		relp->relrowsecurity = classCatResponse.relrowsecurity;
+		relp->relforcerowsecurity = classCatResponse.relforcerowsecurity;
+		relp->relispopulated = classCatResponse.relispopulated;
+		relp->relreplident = REPLICA_IDENTITY_DEFAULT;
+		// memcpy(relp->relreplident, classCatResponse.relreplident, sizeof(classCatResponse.relreplident));
+		relp->relispartition = classCatResponse.relispartition;
+		relp->relrewrite = classCatResponse.relrewrite;
+		// relp->relfrozenxid = classCatResponse.relfrozenxid;
+		// relp->relminmxid = classCatResponse.relminmxid;
+		printf("relp oid - %d\n", relp->oid);
+		printf("relname = %s\n", relp->relname.data);
+		relid = relp->oid;
+		printf("relid - %d\n", relid); 
+	}
+	else {
+		relp = (Form_pg_class) GETSTRUCT(pg_class_tuple);
+		relid = relp->oid;
+	}
+	Assert(relid == targetRelId);
+	// printf("relid - %d\n", relid);
+	// print("relpersistence - %c\n", relp->relpersistence);
+	// causing issue WARNING:  could not dump unrecognized node type: 1886152050
+	// print("relp replident - %s\n", relp->relreplident);
+	// print("cat resp relp replident - %s\n", classCatResponse.relreplident);
 	/*
 	 * allocate storage for the relation descriptor, and copy pg_class_tuple
 	 * to relation->rd_rel.
 	 */
 	relation = AllocateRelationDesc(relp);
-
+	printf("relation copied");
 	/*
 	 * initialize the relation's relation id (relation->rd_id)
 	 */
@@ -1181,7 +1248,7 @@ retry:
 	 * initialize the tuple descriptor (relation->rd_att).
 	 */
 	RelationBuildTupleDesc(relation);
-
+	printf("relation build tuple desc\n");
 	/* foreign key data is not loaded till asked for */
 	relation->rd_fkeylist = NIL;
 	relation->rd_fkeyvalid = false;
@@ -1198,21 +1265,32 @@ retry:
 	relation->rd_partcheckvalid = false;
 	relation->rd_partcheckcxt = NULL;
 
+	printf("before relation init\n");
 	/*
 	 * initialize access method information
 	 */
 	if (relation->rd_rel->relkind == RELKIND_INDEX ||
-		relation->rd_rel->relkind == RELKIND_PARTITIONED_INDEX)
+		relation->rd_rel->relkind == RELKIND_PARTITIONED_INDEX) {
+		printf("inside relation init if\n");
 		RelationInitIndexAccessInfo(relation);
+		printf("succ1\n");
+	}
 	else if (RELKIND_HAS_TABLE_AM(relation->rd_rel->relkind) ||
-			 relation->rd_rel->relkind == RELKIND_SEQUENCE)
+			 relation->rd_rel->relkind == RELKIND_SEQUENCE) {
+		printf("inside relation init else if\n");
 		RelationInitTableAccessMethod(relation);
-	else
+		printf("succ1\n");
+	}
+	else {
 		Assert(relation->rd_rel->relam == InvalidOid);
+		printf("succ1\n");
+	}
 
+	printf("before relation parse rel options\n");
 	/* extract reloptions if any */
 	RelationParseRelOptions(relation, pg_class_tuple);
 
+	printf("after relation parse rel options\n");
 	/*
 	 * Fetch rules and triggers that affect this relation.
 	 *
@@ -1227,21 +1305,25 @@ retry:
 		relation->rd_rulescxt = NULL;
 	}
 
+	printf("before relation triggers\n");
 	if (relation->rd_rel->relhastriggers)
 		RelationBuildTriggers(relation);
 	else
 		relation->trigdesc = NULL;
 
+	printf("before relation security\n");
 	if (relation->rd_rel->relrowsecurity)
 		RelationBuildRowSecurity(relation);
 	else
 		relation->rd_rsdesc = NULL;
 
+	printf("before relation init lock\n");
 	/*
 	 * initialize the relation lock manager information
 	 */
 	RelationInitLockInfo(relation); /* see lmgr.c */
 
+	printf("before relation phy addr\n");
 	/*
 	 * initialize physical addressing information for the relation
 	 */
@@ -1250,11 +1332,13 @@ retry:
 	/* make sure relation is marked as having no open file yet */
 	relation->rd_smgr = NULL;
 
+	printf("before free heap tuple\n");
 	/*
 	 * now we can free the memory allocated for pg_class_tuple
 	 */
 	heap_freetuple(pg_class_tuple);
 
+	printf("before some if stmt\n");
 	/*
 	 * If an invalidation arrived mid-build, start over.  Between here and the
 	 * end of this function, don't add code that does or reasonably could read
@@ -1270,6 +1354,7 @@ retry:
 	Assert(in_progress_offset + 1 == in_progress_list_len);
 	in_progress_list_len--;
 
+	printf("before another if stmt\n");
 	/*
 	 * Insert newly created relation into relcache hash table, if requested.
 	 *
@@ -1285,9 +1370,11 @@ retry:
 	if (insertIt)
 		RelationCacheInsert(relation, true);
 
+	printf("okay, valid relation\n");
 	/* It's fully valid */
 	relation->rd_isvalid = true;
 
+	printf("before some ifdef\n");
 #ifdef MAYBE_RECOVER_RELATION_BUILD_MEMORY
 	if (tmpcxt)
 	{
@@ -1297,6 +1384,7 @@ retry:
 	}
 #endif
 
+	printf("okay, return relation\n");
 	return relation;
 }
 
@@ -1805,6 +1893,7 @@ RelationInitTableAccessMethod(Relation relation)
 
 	if (relation->rd_rel->relkind == RELKIND_SEQUENCE)
 	{
+		printf("RelationInitTableAccessMethod if \n");
 		/*
 		 * Sequences are currently accessed like heap tables, but it doesn't
 		 * seem prudent to show that in the catalog. So just overwrite it
@@ -1812,17 +1901,21 @@ RelationInitTableAccessMethod(Relation relation)
 		 */
 		Assert(relation->rd_rel->relam == InvalidOid);
 		relation->rd_amhandler = F_HEAP_TABLEAM_HANDLER;
+		printf("RelationInitTableAccessMethod if succ\n");
 	}
 	else if (IsCatalogRelation(relation))
 	{
+		printf("RelationInitTableAccessMethod else if \n");
 		/*
 		 * Avoid doing a syscache lookup for catalog tables.
 		 */
 		Assert(relation->rd_rel->relam == HEAP_TABLE_AM_OID);
 		relation->rd_amhandler = F_HEAP_TABLEAM_HANDLER;
+		printf("RelationInitTableAccessMethod else if succ\n");
 	}
 	else
 	{
+		printf("RelationInitTableAccessMethod else \n");
 		/*
 		 * Look up the table access method, save the OID of its handler
 		 * function.
@@ -1830,12 +1923,16 @@ RelationInitTableAccessMethod(Relation relation)
 		Assert(relation->rd_rel->relam != InvalidOid);
 		tuple = SearchSysCache1(AMOID,
 								ObjectIdGetDatum(relation->rd_rel->relam));
+		printf("RelationInitTableAccessMethod else 1 \n");
 		if (!HeapTupleIsValid(tuple))
 			elog(ERROR, "cache lookup failed for access method %u",
 				 relation->rd_rel->relam);
+		printf("RelationInitTableAccessMethod else 2 \n");
 		aform = (Form_pg_am) GETSTRUCT(tuple);
+		printf("RelationInitTableAccessMethod else 3 \n");
 		relation->rd_amhandler = aform->amhandler;
 		ReleaseSysCache(tuple);
+		printf("RelationInitTableAccessMethod else 4 \n");
 	}
 
 	/*
