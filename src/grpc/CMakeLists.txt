@@ -21,9 +21,6 @@ cmake_minimum_required(VERSION 3.5.1)
 
 project(PostgresGRPC C CXX)
 
-include(common.cmake)
-
-
 set(protobuf_MODULE_COMPATIBLE TRUE)
 find_package(Protobuf CONFIG REQUIRED)
 message(STATUS "Using protobuf ${protobuf_VERSION}")
@@ -69,19 +66,6 @@ target_link_libraries(hw_grpc_proto
   ${_REFLECTION}
   ${_GRPC_GRPCPP}
   ${_PROTOBUF_LIBPROTOBUF})
-
-#Targets greeter_[async_](client|server)
-
-foreach(_target
-  greeter_server)
-  add_executable(${_target} "${_target}.cc")
-  target_link_libraries(${_target}
-    hw_grpc_proto
-    ${_REFLECTION}
-    ${_GRPC_GRPCPP}
-    ${_PROTOBUF_LIBPROTOBUF})
-endforeach()
-
 
 add_library(client_grpc SHARED client.cc ${grpc_srcs}
   ${hw_grpc_srcs}

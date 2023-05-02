@@ -64,7 +64,6 @@ CMAKE_BINARY_DIR = /users/pankajkr/postgresql/src/grpc/cmake/build
 
 # The main recursive "all" target.
 all: CMakeFiles/hw_grpc_proto.dir/all
-all: CMakeFiles/greeter_server.dir/all
 all: CMakeFiles/client_grpc.dir/all
 .PHONY : all
 
@@ -74,7 +73,6 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/hw_grpc_proto.dir/clean
-clean: CMakeFiles/greeter_server.dir/clean
 clean: CMakeFiles/client_grpc.dir/clean
 .PHONY : clean
 
@@ -85,7 +83,7 @@ clean: CMakeFiles/client_grpc.dir/clean
 CMakeFiles/hw_grpc_proto.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hw_grpc_proto.dir/build.make CMakeFiles/hw_grpc_proto.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hw_grpc_proto.dir/build.make CMakeFiles/hw_grpc_proto.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/users/pankajkr/postgresql/src/grpc/cmake/build/CMakeFiles --progress-num=8,9,10,11 "Built target hw_grpc_proto"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/users/pankajkr/postgresql/src/grpc/cmake/build/CMakeFiles --progress-num=6,7,8,9 "Built target hw_grpc_proto"
 .PHONY : CMakeFiles/hw_grpc_proto.dir/all
 
 # Build rule for subdir invocation for target.
@@ -103,32 +101,6 @@ hw_grpc_proto: CMakeFiles/hw_grpc_proto.dir/rule
 CMakeFiles/hw_grpc_proto.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hw_grpc_proto.dir/build.make CMakeFiles/hw_grpc_proto.dir/clean
 .PHONY : CMakeFiles/hw_grpc_proto.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/greeter_server.dir
-
-# All Build rule for target.
-CMakeFiles/greeter_server.dir/all: CMakeFiles/hw_grpc_proto.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_server.dir/build.make CMakeFiles/greeter_server.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_server.dir/build.make CMakeFiles/greeter_server.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/users/pankajkr/postgresql/src/grpc/cmake/build/CMakeFiles --progress-num=6,7 "Built target greeter_server"
-.PHONY : CMakeFiles/greeter_server.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/greeter_server.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /users/pankajkr/postgresql/src/grpc/cmake/build/CMakeFiles 6
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/greeter_server.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /users/pankajkr/postgresql/src/grpc/cmake/build/CMakeFiles 0
-.PHONY : CMakeFiles/greeter_server.dir/rule
-
-# Convenience name for target.
-greeter_server: CMakeFiles/greeter_server.dir/rule
-.PHONY : greeter_server
-
-# clean rule for target.
-CMakeFiles/greeter_server.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_server.dir/build.make CMakeFiles/greeter_server.dir/clean
-.PHONY : CMakeFiles/greeter_server.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/client_grpc.dir

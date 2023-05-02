@@ -18,7 +18,7 @@
 #ifndef BITMAPSET_H
 #define BITMAPSET_H
 
-#include "nodes/nodes.h"
+#include "nodes.h"
 
 /*
  * Forward decl to save including pg_list.h

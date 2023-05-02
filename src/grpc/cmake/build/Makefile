@@ -130,19 +130,6 @@ hw_grpc_proto/fast:
 .PHONY : hw_grpc_proto/fast
 
 #=============================================================================
-# Target rules for targets named greeter_server
-
-# Build rule for target.
-greeter_server: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 greeter_server
-.PHONY : greeter_server
-
-# fast build rule for target.
-greeter_server/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_server.dir/build.make CMakeFiles/greeter_server.dir/build
-.PHONY : greeter_server/fast
-
-#=============================================================================
 # Target rules for targets named client_grpc
 
 # Build rule for target.
@@ -178,30 +165,6 @@ client.s: client.cc.s
 client.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_grpc.dir/build.make CMakeFiles/client_grpc.dir/client.cc.s
 .PHONY : client.cc.s
-
-greeter_server.o: greeter_server.cc.o
-.PHONY : greeter_server.o
-
-# target to build an object file
-greeter_server.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_server.dir/build.make CMakeFiles/greeter_server.dir/greeter_server.cc.o
-.PHONY : greeter_server.cc.o
-
-greeter_server.i: greeter_server.cc.i
-.PHONY : greeter_server.i
-
-# target to preprocess a source file
-greeter_server.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_server.dir/build.make CMakeFiles/greeter_server.dir/greeter_server.cc.i
-.PHONY : greeter_server.cc.i
-
-greeter_server.s: greeter_server.cc.s
-.PHONY : greeter_server.s
-
-# target to generate assembly for a file
-greeter_server.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_server.dir/build.make CMakeFiles/greeter_server.dir/greeter_server.cc.s
-.PHONY : greeter_server.cc.s
 
 helloworld.grpc.pb.o: helloworld.grpc.pb.cc.o
 .PHONY : helloworld.grpc.pb.o
@@ -266,14 +229,10 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... client_grpc"
-	@echo "... greeter_server"
 	@echo "... hw_grpc_proto"
 	@echo "... client.o"
 	@echo "... client.i"
 	@echo "... client.s"
-	@echo "... greeter_server.o"
-	@echo "... greeter_server.i"
-	@echo "... greeter_server.s"
 	@echo "... helloworld.grpc.pb.o"
 	@echo "... helloworld.grpc.pb.i"
 	@echo "... helloworld.grpc.pb.s"

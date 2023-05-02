@@ -27,7 +27,7 @@ typedef enum NodeTag
 {
 	T_Invalid = 0,
 
-#include "nodes/nodetags.h"
+#include "nodetags.h"
 } NodeTag;
 
 /*
@@ -229,8 +229,8 @@ extern struct Bitmapset *readBitmapset(void);
 extern uintptr_t readDatum(bool typbyval);
 extern bool *readBoolCols(int numCols);
 extern int *readIntCols(int numCols);
-extern Oid *readOidCols(int numCols);
-extern int16 *readAttrNumberCols(int numCols);
+// extern Oid *readOidCols(int numCols);
+// extern int16 *readAttrNumberCols(int numCols);
 
 /*
  * nodes/copyfuncs.c

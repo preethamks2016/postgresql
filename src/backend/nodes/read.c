@@ -17,15 +17,15 @@
  *
  *-------------------------------------------------------------------------
  */
-#include "postgres.h"
+#include "../../include/postgres.h"
 
 #include <ctype.h>
 
-#include "common/string.h"
-#include "nodes/bitmapset.h"
-#include "nodes/pg_list.h"
-#include "nodes/readfuncs.h"
-#include "nodes/value.h"
+#include "../../include/common/string.h"
+#include "../../include/nodes/bitmapset.h"
+#include "../../include/nodes/pg_list.h"
+#include "../../include/nodes/readfuncs.h"
+#include "../../include/nodes/value.h"
 
 
 /* Static state for pg_strtok */
@@ -213,7 +213,7 @@ pg_strtok(int *length)
 char *
 debackslash(const char *token, int length)
 {
-	char	   *result = palloc(length + 1);
+	char	   *result = (char*) palloc(length + 1);
 	char	   *ptr = result;
 
 	while (length > 0)
@@ -242,10 +242,10 @@ debackslash(const char *token, int length)
  *
  *	  Assumption: the ascii representation is legal
  */
-static NodeTag
+static int
 nodeTokenType(const char *token, int length)
 {
-	NodeTag		retval;
+	int		retval;
 	const char *numptr;
 	int			numlen;
 
@@ -320,7 +320,7 @@ void *
 nodeRead(const char *token, int tok_len)
 {
 	Node	   *result;
-	NodeTag		type;
+	int		type;
 
 	if (token == NULL)			/* need to read a token? */
 	{
@@ -499,7 +499,7 @@ nodeRead(const char *token, int tok_len)
 			break;
 		case T_BitString:
 			{
-				char	   *val = palloc(tok_len + 1);
+				char	   *val = (char*)  palloc(tok_len + 1);
 
 				memcpy(val, token, tok_len);
 				val[tok_len] = '\0';

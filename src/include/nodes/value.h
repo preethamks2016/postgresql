@@ -14,7 +14,7 @@
 #ifndef VALUE_H
 #define VALUE_H
 
-#include "nodes/nodes.h"
+#include "nodes.h"
 
 /*
  * The node types Integer, Float, String, and BitString are used to represent

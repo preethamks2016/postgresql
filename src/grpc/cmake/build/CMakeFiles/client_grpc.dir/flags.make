@@ -6,5 +6,5 @@ CXX_DEFINES = -DCARES_STATICLIB -Dclient_grpc_EXPORTS
 
 CXX_INCLUDES = -I/users/pankajkr/postgresql/src/grpc/cmake/build -isystem /users/pankajkr/.local/include
 
-CXX_FLAGS = -fPIC -std=gnu++14
+CXX_FLAGS = -fPIC
 

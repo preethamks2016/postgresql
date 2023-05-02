@@ -137,7 +137,6 @@ libclient_grpc.so: CMakeFiles/client_grpc.dir/client.cc.o
 libclient_grpc.so: CMakeFiles/client_grpc.dir/helloworld.grpc.pb.cc.o
 libclient_grpc.so: CMakeFiles/client_grpc.dir/helloworld.pb.cc.o
 libclient_grpc.so: CMakeFiles/client_grpc.dir/build.make
-libclient_grpc.so: /users/pankajkr/.local/lib/libgrpc++_reflection.a
 libclient_grpc.so: /users/pankajkr/.local/lib/libgrpc++.a
 libclient_grpc.so: /users/pankajkr/.local/lib/libprotobuf.a
 libclient_grpc.so: /users/pankajkr/.local/lib/libgrpc.a
@@ -152,6 +151,7 @@ libclient_grpc.so: /users/pankajkr/.local/lib/libabsl_city.a
 libclient_grpc.so: /users/pankajkr/.local/lib/libabsl_low_level_hash.a
 libclient_grpc.so: /users/pankajkr/.local/lib/libabsl_statusor.a
 libclient_grpc.so: /users/pankajkr/.local/lib/libgpr.a
+libclient_grpc.so: /users/pankajkr/.local/lib/libz.a
 libclient_grpc.so: /users/pankajkr/.local/lib/libabsl_bad_variant_access.a
 libclient_grpc.so: /users/pankajkr/.local/lib/libabsl_status.a
 libclient_grpc.so: /users/pankajkr/.local/lib/libabsl_strerror.a
@@ -197,7 +197,6 @@ libclient_grpc.so: /users/pankajkr/.local/lib/libabsl_civil_time.a
 libclient_grpc.so: /users/pankajkr/.local/lib/libabsl_time_zone.a
 libclient_grpc.so: /users/pankajkr/.local/lib/libssl.a
 libclient_grpc.so: /users/pankajkr/.local/lib/libcrypto.a
-libclient_grpc.so: /users/pankajkr/.local/lib/libz.a
 libclient_grpc.so: CMakeFiles/client_grpc.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/users/pankajkr/postgresql/src/grpc/cmake/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX shared library libclient_grpc.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/client_grpc.dir/link.txt --verbose=$(VERBOSE)

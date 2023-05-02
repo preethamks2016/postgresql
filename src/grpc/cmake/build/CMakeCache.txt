@@ -231,13 +231,13 @@ Protobuf_DIR:PATH=/users/pankajkr/.local/lib/cmake/protobuf
 absl_DIR:PATH=/users/pankajkr/.local/lib/cmake/absl
 
 //Dependencies for the target
-client_grpc_LIB_DEPENDS:STATIC=general;gRPC::grpc++_reflection;general;gRPC::grpc++;general;protobuf::libprotobuf;
+client_grpc_LIB_DEPENDS:STATIC=general;gRPC::grpc++;
 
 //The directory containing a CMake configuration file for gRPC.
 gRPC_DIR:PATH=/users/pankajkr/.local/lib/cmake/grpc
 
 //Dependencies for the target
-hw_grpc_proto_LIB_DEPENDS:STATIC=general;gRPC::grpc++_reflection;general;gRPC::grpc++;general;protobuf::libprotobuf;
+hw_grpc_proto_LIB_DEPENDS:STATIC=general;gRPC::grpc++;
 
 //CMake built-in FindProtobuf.cmake module compatible
 protobuf_MODULE_COMPATIBLE:BOOL=OFF

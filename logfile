@@ -790,3 +790,5 @@ Successfully wrote to the file.
 2023-04-27 01:34:11.492 CDT [17440] LOG:  database system was shut down at 2023-04-27 01:34:11 CDT
 2023-04-27 01:34:11.499 CDT [17437] LOG:  database system is ready to accept connections
 Successfully wrote to the file.
+2023-04-27 01:39:11.493 CDT [17438] LOG:  checkpoint starting: time
+2023-04-27 01:39:11.498 CDT [17438] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.003 s, sync=0.001 s, total=0.006 s; sync files=2, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=0 kB; lsn=0/18C6A18, redo lsn=0/18C69E0

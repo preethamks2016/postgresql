@@ -1,5 +1,4 @@
 /users/pankajkr/postgresql/src/grpc/cmake/build/CMakeFiles/hw_grpc_proto.dir
-/users/pankajkr/postgresql/src/grpc/cmake/build/CMakeFiles/greeter_server.dir
 /users/pankajkr/postgresql/src/grpc/cmake/build/CMakeFiles/client_grpc.dir
 /users/pankajkr/postgresql/src/grpc/cmake/build/CMakeFiles/edit_cache.dir
 /users/pankajkr/postgresql/src/grpc/cmake/build/CMakeFiles/rebuild_cache.dir
