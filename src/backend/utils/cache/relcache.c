@@ -91,6 +91,7 @@
 #include "utils/syscache.h"
 
 #include "/users/deepti96/other-pg/postgresql/src/grpc/sundial_client.h"
+#include<time.h>
 
 #define RELCACHE_INIT_FILEMAGIC		0x573266	/* version ID value */
 
@@ -1121,16 +1122,22 @@ retry:
 	
 	printf("targetRelId = %u\n", targetRelId);
 	if(targetRelId == (unsigned int)16386) {
+		// relp = (Form_pg_class) GETSTRUCT(pg_class_tuple);
 		// GRPC call
-		// printf("RELCACHE\n");
 		initSdClient();
 		// printf("INITED SD client!\n");
 		struct ClassCatResponse classCatResponse = getClassCatalog("DEEEEPTI!!!!");
-		// printf("reltype = %d\n", classCatResponse.reltype);
 		printf("Sent getClassCatalog from SD client!\n");
-		printf("relcache relpersistence %c\n", classCatResponse.relpersistence[0]);
-		// printf("relname! = %s\n", classCatResponse.relname);
-		// relp->relpersistence = RELPERSISTENCE_PERMANENT;
+		
+		time_t current_time;
+		struct tm *time_info;
+		char time_string[9]; // enough to store "HH:MM:SS\0"
+
+		time(&current_time);
+		time_info = localtime(&current_time);
+
+		strftime(time_string, sizeof(time_string), "%H:%M:%S", time_info);
+		printf("Current time: %s\n", time_string);
 		relp->oid = classCatResponse.oid;
 		NameData my_name_data;
 		// Copy values from classCatResponse into the new structure
@@ -1166,23 +1173,85 @@ retry:
 		// memcpy(relp->relreplident, classCatResponse.relreplident, sizeof(classCatResponse.relreplident));
 		relp->relispartition = classCatResponse.relispartition;
 		relp->relrewrite = classCatResponse.relrewrite;
-		// relp->relfrozenxid = classCatResponse.relfrozenxid;
-		// relp->relminmxid = classCatResponse.relminmxid;
-		printf("relp oid - %d\n", relp->oid);
-		printf("relname = %s\n", relp->relname.data);
-		relid = relp->oid;
-		printf("relid - %d\n", relid); 
+		relp->relfrozenxid = classCatResponse.relfrozenxid;
+		relp->relminmxid = classCatResponse.relminmxid;
+		// printf("relp oid - %d\n", relp->oid);
+		// printf("relname = %s\n", relp->relname.data);
+		// relid = relp->oid;
+		// printf("relid - %d\n", relid); 
+
+		printf("OID: %u\n", relp->oid);
+		printf("Relation name: %s\n", relp->relname.data);
+		printf("Namespace OID: %u\n", relp->relnamespace);
+		printf("Relation type OID: %u\n", relp->reltype);
+		printf("Underlying composite type OID: %u\n", relp->reloftype);
+		printf("Owner OID: %u\n", relp->relowner);
+		printf("Access method OID: %u\n", relp->relam);
+		printf("Physical storage file identifier: %u\n", relp->relfilenode);
+		printf("Table space identifier: %u\n", relp->reltablespace);
+		printf("Number of blocks: %d\n", relp->relpages);
+		printf("Number of tuples: %f\n", relp->reltuples);
+		printf("Number of all-visible blocks: %d\n", relp->relallvisible);
+		printf("Toast table OID: %u\n", relp->reltoastrelid);
+		printf("Has any indexes: %d\n", relp->relhasindex);
+		printf("Shared across databases: %d\n", relp->relisshared);
+		printf("Persistence: %c\n", relp->relpersistence);
+		printf("Relation kind: %c\n", relp->relkind);
+		printf("Number of user attributes: %d\n", relp->relnatts);
+		printf("Number of CHECK constraints: %d\n", relp->relchecks);
+		printf("Has any rules: %d\n", relp->relhasrules);
+		printf("Has any triggers: %d\n", relp->relhastriggers);
+		printf("Has child tables or indexes: %d\n", relp->relhassubclass);
+		printf("Row security enabled: %d\n", relp->relrowsecurity);
+		printf("Row security forced for owners: %d\n", relp->relforcerowsecurity);
+		printf("Materialized view holds query results: %d\n", relp->relispopulated);
+		printf("Replica identity: %c\n", relp->relreplident);
+		printf("Is partition: %d\n", relp->relispartition);
+		printf("Link to original relation during table rewrite: %u\n", relp->relrewrite);
+		printf("All XIDs less than this are frozen: %u\n", relp->relfrozenxid);
+		printf("All multixacts in this relation are >= this: %u\n", relp->relminmxid);
+		#ifdef CATALOG_VARLEN
+		printf("Access permissions: %s\n", acl_to_text(relp->relacl, relp->relowner));
+		printf("Access-method-specific options: %s\n", TextDatumGetCString(relp->reloptions));
+		printf("Partition bound node tree: %s\n", nodeToString(relp->relpartbound));
+		#endif
+
+		Form_pg_class other_relp = (Form_pg_class) palloc(sizeof(FormData_pg_class));
+		other_relp = (Form_pg_class) GETSTRUCT(pg_class_tuple);
+
+		// Assert(relp->relname.data == other_relp->relname.data);
+		// Assert(relp->relnamespace == other_relp->relnamespace);
+		// Assert(relp->reltype == other_relp->reltype);
+		// Assert(relp->relowner == other_relp->relowner);
+		// Assert(relp->relam == other_relp->relam);
+		// Assert(relp->relfilenode == other_relp->relfilenode);
+		// Assert(relp->reltablespace == other_relp->reltablespace);
+		// Assert(relp->relpages == other_relp->relpages);
+		// Assert(relp->reltuples == other_relp->reltuples);
+		// Assert(relp->relallvisible == other_relp->relallvisible);
+		// Assert(relp->reltoastrelid == other_relp->reltoastrelid);
+		// Assert(relp->relhasindex == other_relp->relhasindex);
+		// Assert(relp->relisshared == other_relp->relisshared);
+		// Assert(relp->relpersistence == other_relp->relpersistence);
+		// Assert(relp->relkind == other_relp->relkind);
+		// Assert(relp->relnatts == other_relp->relnatts);
+		// Assert(relp->relchecks == other_relp->relchecks);
+		// Assert(relp->relhasoids == other_relp->relhasoids);
+		// Assert(relp->relhaspkey == other_relp->relhaspkey);
+		// Assert(relp->relhasrules == other_relp->relhasrules);
+		// Assert(relp->relhastriggers == other_relp->relhastriggers);
+		// Assert(relp->relrowsecurity == other_relp->relrowsecurity);
+		// Assert(relp->relforcerowsecurity == other_relp->relforcerowsecurity);
+		// Assert(relp->relispopulated == other_relp->relispopulated);
+		// Assert(relp->relreplident == other_relp->relreplident);
+		printf("SUCCEEDED!\n");
 	}
 	else {
 		relp = (Form_pg_class) GETSTRUCT(pg_class_tuple);
-		relid = relp->oid;
 	}
+	relid = relp->oid;
 	Assert(relid == targetRelId);
-	// printf("relid - %d\n", relid);
-	// print("relpersistence - %c\n", relp->relpersistence);
-	// causing issue WARNING:  could not dump unrecognized node type: 1886152050
-	// print("relp replident - %s\n", relp->relreplident);
-	// print("cat resp relp replident - %s\n", classCatResponse.relreplident);
+	
 	/*
 	 * allocate storage for the relation descriptor, and copy pg_class_tuple
 	 * to relation->rd_rel.
